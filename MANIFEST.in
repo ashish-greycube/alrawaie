@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include alrawaie *.css
+recursive-include alrawaie *.csv
+recursive-include alrawaie *.html
+recursive-include alrawaie *.ico
+recursive-include alrawaie *.js
+recursive-include alrawaie *.json
+recursive-include alrawaie *.md
+recursive-include alrawaie *.png
+recursive-include alrawaie *.py
+recursive-include alrawaie *.svg
+recursive-include alrawaie *.txt
+recursive-exclude alrawaie *.pyc
