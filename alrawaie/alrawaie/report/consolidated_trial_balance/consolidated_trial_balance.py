@@ -28,6 +28,7 @@ def execute(filters=None):
     # Note: all companies must have same rows (accounts)
     #
     columns, consolidated_data = tb_execute(filters)
+
     for d in frappe.db.get_list(
         "Company",
         filters={
@@ -37,6 +38,10 @@ def execute(filters=None):
     ):
         filters["company"] = d
         columns, data = tb_execute(filters)
+        if len(consolidated_data) == 1:
+            consolidated_data = data
+            continue
+
         for idx in range(len(consolidated_data)):
             account_name = consolidated_data[idx].get("account_name")
             if not account_name:
