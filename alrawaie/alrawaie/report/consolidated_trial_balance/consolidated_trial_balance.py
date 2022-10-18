@@ -27,7 +27,7 @@ def execute(filters=None):
     #
     # Note: all companies must have same rows (accounts)
     #
-    columns, consolidated_data = [], []
+    columns, consolidated_data = tb_execute(filters)
     for d in frappe.db.get_list(
         "Company",
         filters={
@@ -37,15 +37,16 @@ def execute(filters=None):
     ):
         filters["company"] = d
         columns, data = tb_execute(filters)
-        if not consolidated_data:
-            consolidated_data = data
-        else:
-            for idx in range(len(consolidated_data)):
+        for idx in range(len(consolidated_data)):
+            account_name = consolidated_data[idx].get("account_name")
+            if not account_name:
+                continue
+            for item in filter(lambda x: x.get("account_name") == account_name, data):
                 for col in amount_columns:
-                    if data[idx][col]:
-                        consolidated_data[idx][col] = (
-                            consolidated_data[idx][col] + data[idx][col]
-                        )
+                    if item.get(col):
+                        consolidated_data[idx][col] = consolidated_data[idx].get(
+                            col
+                        ) + item.get(col)
 
     return columns, consolidated_data
 
