@@ -9,7 +9,15 @@ frappe.require("assets/erpnext/js/financial_statements.js", function () {
         label: __("Company"),
         fieldtype: "Link",
         options: "Company",
-        default: frappe.defaults.get_user_default("Company"),
+        get_query: function () {
+          return {
+            doctype: "Company",
+            filters: {
+              is_group: 1,
+            },
+          };
+        },
+        // default: frappe.defaults.get_user_default("Company"),
         reqd: 1,
       },
       {
