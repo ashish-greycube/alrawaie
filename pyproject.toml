@@ -1,5 +1,10 @@
 [project]
 name = "alrawaie"
+dynamic = ["version"]
 dependencies = [
     "pandas"
 ]
+
+
+[tool.bench.frappe-dependencies]
+frappe = ">=14.0.0,<16.0.0"
